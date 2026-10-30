@@ -1,3 +1,5 @@
+![Banner](banner.png)
+
 # chv-ServiceAccountPrivilegeChecker
 Analyzes service account configurations across various platforms (e.g., Windows, Linux) to identify excessive privileges and potential privilege escalation paths. Reports service accounts with permissions beyond the minimum required for their functions. - Focused on Automates the verification of system configurations against defined security baselines (CIS benchmarks, DISA STIGs). Reads configuration files (YAML, JSON) and validates them against schemas that define acceptable security settings. Provides reports indicating deviations and recommended remediations. Focuses on static configuration analysis, not runtime monitoring.
 
