@@ -99,18 +99,17 @@ def validate_config(config_data, schema_data):
         jsonschema.exceptions.ValidationError: If the configuration does not match the schema.
     """
     try:
-        jsonschema.validate(instance=config_data, schema=schema_data)
-        return []  # No errors
-    except jsonschema.exceptions.ValidationError as e:
+        # iter_errors collects every failure in one pass. validate stops
+        # at the first, so a config missing three required keys heard
+        # about one, fixed it, and had to run twice more to find the rest.
+        validator_cls = jsonschema.validators.validator_for(schema_data)
+        validator = validator_cls(schema_data)
         errors = []
-        error_path = ".".join(map(str, e.path))  # Format the path as a string.
-
-        error_info = {
-            "message": e.message,
-            "path": error_path
-        }
-        errors.append(error_info)
-
+        for e in validator.iter_errors(config_data):
+            errors.append({
+                "message": e.message,
+                "path": ".".join(map(str, e.path)),
+            })
         return errors
     except jsonschema.exceptions.SchemaError as e:
         raise ValueError(f"Invalid schema: {e}")
@@ -167,7 +166,10 @@ def main():
                     f.write(report)
                 logging.info(f"Report saved to: {args.output_file}")
             except Exception as e:
+                # The report was the point of the run; losing it is a
+                # failure even when the validation itself passed.
                 logging.error(f"Error writing report to file: {e}")
+                sys.exit(1)
         else:
             print(report)
 
@@ -191,53 +193,19 @@ def main():
         sys.exit(1)
 
 if __name__ == "__main__":
-    # Example Usage:
-    # Create example configuration and schema files for testing.
-
-    # Create a sample config.yaml
-    config_data = {
-        "service_accounts": [
-            {
-                "name": "web_server",
-                "permissions": ["read", "write", "execute"]
-            },
-            {
-                "name": "database_server",
-                "permissions": ["read", "write", "admin"]
-            }
-        ]
-    }
-
-    with open("config.yaml", "w") as f:
-        yaml.dump(config_data, f)
-
-    # Create a sample schema.json
-    schema_data = {
-        "type": "object",
-        "properties": {
-            "service_accounts": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "name": {"type": "string"},
-                        "permissions": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "uniqueItems": True
-                        }
-                    },
-                    "required": ["name", "permissions"]
-                }
-            }
-        },
-        "required": ["service_accounts"]
-    }
-
-    with open("schema.json", "w") as f:
-        json.dump(schema_data, f, indent=4)
-
-    # Now run the script from the command line:
-    # python main.py config.yaml schema.json
-
+    # This block used to write example config.yaml and schema.json files
+    # into the working directory before calling main, on every run,
+    # including --help. A checker that overwrites files named like the
+    # caller's real inputs destroys the thing it was asked to check, so
+    # the examples now live in this comment only:
+    #
+    # config.yaml:
+    #   service_accounts:
+    #     - name: web_server
+    #       permissions: ["read", "write", "execute"]
+    #
+    # schema.json: a JSON schema requiring "service_accounts", with each
+    # account requiring "name" and "permissions".
+    #
+    # Run: python main.py config.yaml schema.json
     main()
