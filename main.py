@@ -15,9 +15,9 @@ def setup_argparse():
     """
     Sets up the argument parser for the command-line interface.
     """
-    parser = argparse.ArgumentParser(description="Analyzes service account configurations and validates them against security baselines.")
+    parser = argparse.ArgumentParser(description="Validates a service account configuration file against a JSON schema you supply. Privilege limits exist only if that schema encodes them.")
     parser.add_argument("config_file", help="Path to the configuration file (YAML or JSON).")
-    parser.add_argument("schema_file", help="Path to the schema file (JSON) defining security baselines.")
+    parser.add_argument("schema_file", help="Path to the JSON schema file to validate the config against.")
     parser.add_argument("-l", "--log_level", choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], default='INFO', help="Set the logging level.")
     parser.add_argument("-o", "--output_file", help="Path to the output file for the report (optional).")
     return parser.parse_args()
