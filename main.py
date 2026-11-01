@@ -102,6 +102,11 @@ def validate_config(config_data, schema_data):
         # iter_errors collects every failure in one pass. validate stops
         # at the first, so a config missing three required keys heard
         # about one, fixed it, and had to run twice more to find the rest.
+        # validator_for also means the schema chooses its own dialect
+        # through its $schema key, and a schema without one is judged
+        # by the newest draft the library knows. The same config can
+        # pass under one draft and fail under another, and the report
+        # never says which dialect did the judging.
         validator_cls = jsonschema.validators.validator_for(schema_data)
         validator = validator_cls(schema_data)
         errors = []
@@ -133,6 +138,10 @@ def generate_report(validation_errors):
 
     report = "Configuration validation failed:\n"
     for error in validation_errors:
+        # A failure at the document root has an empty path, so the
+        # report prints a blank after Path for exactly the errors
+        # that describe the file as a whole, which reads like a bug
+        # in the report rather than a finding about the root.
         report += f"  - Path: {error['path']}\n"
         report += f"    Message: {error['message']}\n"
     return report
