@@ -3,164 +3,100 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chv Serviceaccountprivilegechecker: what it is, how it runs, where it stops</title>
-<meta name="description" content="Chv Serviceaccountprivilegechecker is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.">
+<title>chv-serviceaccountprivilegechecker: The Star Blanket of the Desert Camp</title>
+<meta name="description" content="Validates a service account configuration file in YAML or JSON against a JSON schema you supply, and reports every place the configuration breaks that schema.">
 <style>
-:root {
-  --bg: #f0ead8; --panel: #faf6ea; --ink: #1e342c;
-  --mut: #ffffff;
-  --acc: #b26e28; --acc2: #ac362c;
-  --line: #faf6ea;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font-family: Georgia, 'Times New Roman', serif; line-height: 1.55; }
-code, pre, .mono { font-family: 'Courier New', monospace; }
-a { color: var(--acc2); }
-.hero { padding: 3rem 6vw 1rem; }
-.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; }
-.logo { width: 92px; height: 92px; border-radius: 18px;
-  border: 1px solid var(--line); }
-h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
-h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
-  margin-top: 2em; }
-.lede { font-size: 1.15rem; max-width: 62ch; }
-main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
-.grid { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line);
-  border-radius: 12px; padding: 1rem 1.2rem; }
-.card.pop { animation: rise 0.7s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; } }
-pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
-  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
-  border-left: 5px solid var(--acc); }
-table { border-collapse: collapse; width: 100%; }
-td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
-  text-align: left; }
-.shots { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.shots img { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; background: #f4f1e8; }
-footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
-  color: var(--mut); }
-.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
-.rail nav { position: sticky; top: 1rem; min-width: 180px; }
-@media (max-width: 760px) { .rail { flex-direction: column; }
-  .rail nav { position: static; } }
-@media (prefers-reduced-motion: reduce) {
-  .card.pop { animation: none; } * { scroll-behavior: auto; } }
+@font-face{font-family:'Baloo Tamma 2';src:url('fonts/BalooTamma2.ttf') format('truetype');}
+@font-face{font-family:'Archivo';src:url('fonts/Archivo.ttf') format('truetype');}
+:root{--vio:#2c2145;--teal:#1d3a3f;--cream:#f2ead0;--silver:#c9cdd6;--pale:#ddd8c4}
+*{box-sizing:border-box}body{margin:0;background:var(--vio);color:var(--pale);font-family:'Archivo',sans-serif;line-height:1.65}
+h1,h2,h3{font-family:'Baloo Tamma 2',sans-serif;color:var(--cream)}
+.hero img.heroimg{width:100%;height:56vh;object-fit:cover;display:block}
+.hero .in{padding:1rem 6vw 2rem;max-width:1120px;margin:0 auto}
+.logo{width:200px}
+main{padding:0 6vw 3rem;max-width:1120px;margin:0 auto}
+nav{display:flex;gap:.9rem;flex-wrap:wrap;margin:1.2rem 0}
+.plaque{display:inline-block;text-decoration:none;color:var(--cream);font-family:'Baloo Tamma 2',sans-serif;padding:.6rem 1.3rem;background:#241a38;border:2px solid #c9a227;box-shadow:inset 0 0 0 3px #3a2d5e;text-align:center}
+.plaque:hover{background:radial-gradient(ellipse at 50% 50%,#6b5432,#241a38 78%)}
+.plaque:active{background:var(--teal)}
+.plaque:focus-visible{outline:3px double var(--silver);outline-offset:5px}
+.plaque::before{content:none}
+.entry{background:var(--teal);border-top:14px solid #173035;border-radius:0 0 6px 6px;box-shadow:inset 0 4px 0 #8fa3a8;padding:.4rem 1.8rem 1.5rem;margin:1.8rem 0}
+.entry h2{font-size:1.5rem;border-bottom:1px solid var(--silver);padding-bottom:.35rem}
+.hour{font-size:.85rem;color:var(--silver);letter-spacing:.08em}
+pre{background:#14282c;color:var(--cream);padding:1rem;overflow-x:auto}
+.cmd{font-size:1.22rem;text-align:center;font-weight:700}
+a{color:#e8d98a}
+a::before{content:'';display:inline-block;width:14px;height:14px;margin-right:.45em;border-radius:50%;background:radial-gradient(circle at 32% 50%,var(--silver) 0 5px,transparent 6px);border:1px solid var(--silver);vertical-align:-2px}
+a:hover::before{background:var(--silver)}
+.catrow{height:12px;margin:2rem 0;background-image:radial-gradient(ellipse 9px 5px at 50% 60%,#c9cdd6 98%,transparent);background-size:44px 12px;background-repeat:repeat-x;border-top:1px solid var(--silver)}
+table{border-collapse:collapse;width:100%}td,th{padding:.5rem .7rem;border-bottom:1px solid #33565c;text-align:left;vertical-align:top}
+.flag{background:#3d1520;border:2px solid #c96a7a;padding:.2rem 1.4rem 1rem;margin:1.2rem 0}
+.callout{background:#12272b;border-top:4px solid #c9a227;padding:.2rem 1.4rem 1rem;margin:1.2rem 0}
+.callout h3,.flag h3{color:var(--cream);font-size:1.25rem;font-family:'Baloo Tamma 2',sans-serif}
+footer{padding:1rem 6vw 2.4rem;max-width:1120px;margin:0 auto}
 </style>
 </head>
-<body class="layout-note">
-<!-- This page exists for chv-serviceaccountprivilegechecker alone: the layout (notebook),
-     the colors, and the type were picked for this project, not
-     shared with the other project pages. The code block below is
-     copied from the file it names, line for line. If it looks
-     plain, that is because the project is plain, and I would
-     rather the page match the project than dress it up. The one
-     thing I will not do here is oversell: what this project does
-     not do is stated on the page, not hidden from it. -->
+<body>
 <header class="hero">
-  <img class="logo" src="assets/logo.png" alt="Chv Serviceaccountprivilegechecker logo">
-  <img class="banner" src="assets/banner.png" alt="">
-  <h1>Chv Serviceaccountprivilegechecker</h1>
-  <p class="mono"><a href="https://github.com/ShadowGuard-AI/chv-serviceaccountprivilegechecker">github.com/ShadowGuard-AI/chv-serviceaccountprivilegechecker</a></p>
+<img class="heroimg" src="assets/intro-banner.png" alt="The near edge of a star blanket, a row of bedrolls, a lantern lit camp table with sleeping cats, dunes and the Milky Way, no lettering anywhere">
+<div class="in">
+<img class="logo" src="assets/logo.png" alt="A folded star blanket seen from above, one large cream star at its centre and a teal underside at the turned back corner">
+<h1>chv-serviceaccountprivilegechecker</h1>
+<p>A night watch log kept through one watch. Each entry is opened by its hour, and the faults in the source are flagged where they stand.</p>
+<nav>
+<a class="plaque" href="#command">Validate the Configuration</a>
+<a class="plaque" href="#params">Supply a Schema</a>
+<a class="plaque" href="#params">Write the Report to a File</a>
+<a class="plaque" href="#params">Set the Logging Level</a>
+<a class="plaque" href="#params">Show Help</a>
+</nav>
+</div>
 </header>
-
 <main>
-  <section class="rail">
-    <nav aria-label="on this page">
-      <p class="mono"><a href="#run">Run it</a><br>
-      <a href="#files">The files</a><br>
-      <a href="#sheets">The sheets</a><br>
-      <a href="https://github.com/ShadowGuard-AI/chv-serviceaccountprivilegechecker">The repo</a></p>
-    </nav>
-    <div>
-      <p class="lede">Chv Serviceaccountprivilegechecker is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.</p>
-      <div class="grid">
-        <div class="card pop"><h3>What it is</h3>
-          <p>Chv Serviceaccountprivilegechecker: 5 files, 231 counted
-          lines across Python 211, Markdown 18, Text 2. One job, done in the
-          open, in files you can read.</p></div>
-        <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>main.py</code> carries the most
-          lines. If the project grows, that file is where the growth
-          lands first, for better or worse.</p></div>
-        <div class="card pop"><h3>The honest gap</h3>
-          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
-      </div>
-      <section id="run">
-        <h2>Run it</h2>
-        <p>The repo README has the exact commands for this one. The
-        shape is the shape for most of my projects: clone it, read the
-        top file first so you know what will happen, then run it on
-        something you do not mind breaking.</p>
-        <p class="mono">$ git clone https://github.com/ShadowGuard-AI/chv-serviceaccountprivilegechecker.git<br>$ cd chv-serviceaccountprivilegechecker</p>
-      </section>
-      
-  <section aria-label="real code">
-    <h2>The code, as it sits in the repo</h2>
-    <p>From <code>main.py</code>, line 12 on. I did
-    not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code>logging.basicConfig(level=logging.INFO, format=&#x27;%(asctime)s - %(levelname)s - %(message)s&#x27;)
-
-def setup_argparse():
-    &quot;&quot;&quot;
-    Sets up the argument parser for the command-line interface.
-    &quot;&quot;&quot;
-    parser = argparse.ArgumentParser(description=&quot;Analyzes service account configurations and validates them against security baselines.&quot;)
-    parser.add_argument(&quot;config_file&quot;, help=&quot;Path to the configuration file (YAML or JSON).&quot;)
-    parser.add_argument(&quot;schema_file&quot;, help=&quot;Path to the schema file (JSON) defining security baselines.&quot;)
-    parser.add_argument(&quot;-l&quot;, &quot;--log_level&quot;, choices=[&#x27;DEBUG&#x27;, &#x27;INFO&#x27;, &#x27;WARNING&#x27;, &#x27;ERROR&#x27;, &#x27;CRITICAL&#x27;], default=&#x27;INFO&#x27;, help=&quot;Set the logging level.&quot;)
-    parser.add_argument(&quot;-o&quot;, &quot;--output_file&quot;, help=&quot;Path to the output file for the report (optional).&quot;)
-    return parser.parse_args()
-
-def load_config(config_file):
-    &quot;&quot;&quot;
-    Loads configuration data from a YAML or JSON file.
-
-    Args:
-        config_file (str): Path to the configuration file.
-
-    Returns:
-        dict: Configuration data as a dictionary.</code></pre>
-  </section>
-      <section id="files">
-        <h2>The files that matter</h2>
-        <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>main.py</code></td><td>211</td></tr>
-        <tr><td><code>README.md</code></td><td>18</td></tr>
-        <tr><td><code>requirements.txt</code></td><td>2</td></tr>
-        <tr><td><code>banner.png</code></td><td>0</td></tr>
-        <tr><td><code>logo.png</code></td><td>0</td></tr>
-        </table>
-        <p>Names doing the work: <span class="mono">setup_argparse, load_config, load_schema, validate_config, generate_report, main</span>.</p>
-      </section>
-      <section id="sheets">
-        <h2>Drawn by hand</h2>
-        <p>I sketch my projects on notebook paper so I have to
-        understand them well enough to draw them. The full set,
-        with the counts and how they were counted, is the
-        <a href="https://github.com/ShadowGuard-AI/chv-serviceaccountprivilegechecker/tree/main/chv-serviceaccountprivilegechecker-Visuals">chv-serviceaccountprivilegechecker-Visuals</a>
-        folder in the repo. Nothing is drawn over the binder holes.
-        That is a rule, not a style.</p>
-        <div class="shots">
-          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Chv Serviceaccountprivilegechecker">
-          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Chv Serviceaccountprivilegechecker">
-          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Chv Serviceaccountprivilegechecker">
-        </div>
-      </section>
-    </div>
-  </section>
+<section class="entry" id="watch"><p class="hour">FIRST HOUR</p><h2>The Watch and What It Checks</h2>
+<p>chv-serviceaccountprivilegechecker validates a service account configuration file, in YAML or JSON, against a JSON schema you supply, and reports every place the configuration breaks that schema, with the failing path and the schema message.</p>
+<div class="callout"><h3>No Built In Privilege List</h3><p>The tool ships with no built in list of allowed or forbidden privileges. Privilege limits exist only if the schema you supply encodes them, for example by listing the allowed permission values in an enum.</p></div>
+<div class="callout"><h3>A Presence Only Schema Passes Admin</h3><p>With a schema that only checks that fields are present, a configuration granting admin, root, and sudo passes as valid.</p></div>
+<p>The check is static and file based, with no runtime monitoring.</p>
+</section>
+<div class="catrow"></div>
+<section class="entry"><p class="hour">SECOND HOUR</p><h2>Taking Up the Watch</h2>
+<div class="flag"><h3>Wrong Organisation in the Source</h3>
+<pre>git clone https://github.com/ShadowStrikeHQ/chv-serviceaccountprivilegechecker</pre>
+<p>The install line above is the single clone line as printed in the source, and it points to ShadowStrikeHQ, the wrong organisation. It must not be followed as printed. This repository lives under ShadowGuard-AI. No corrected clone line is dressed up here as the source's own text.</p></div>
+<p>A smaller note from the repository files: requirements.txt lists jsonschema at version 4.17.0 or above and PyYAML at version 6.0 or above, though the source install passage gives no package install step.</p>
+<p><a href="https://github.com/ShadowGuard-AI/chv-serviceaccountprivilegechecker">The repository on GitHub</a></p>
+</section>
+<div class="catrow"></div>
+<section class="entry" id="command"><p class="hour">THIRD HOUR</p><h2>Two Files Are Required</h2>
+<pre class="cmd">python3 main.py config.yaml schema.json</pre>
+<p>Two files are handed to the watch, in that order, every time: the configuration first and the schema second, with optional flags after them. This working invocation comes from the argument parser in main.py and from the run line in its closing comment.</p>
+<div class="flag"><h3>Placeholder in the Source</h3><p>The source usage line, ./chv-serviceaccountprivilegechecker [params], is a placeholder and runs nothing.</p></div>
+</section>
+<div class="catrow"></div>
+<section class="entry" id="params"><p class="hour">FOURTH HOUR</p><h2>Five Entries in the Log</h2>
+<table>
+<tr><td><b>config_file</b></td><td>A required positional giving the path to the configuration file, YAML or JSON.</td></tr>
+<tr><td><b>schema_file</b></td><td>A required positional giving the path to the JSON schema file to validate against.</td></tr>
+<tr><td><b>-h</b></td><td>Shows a help message and exits.</td></tr>
+<tr><td><b>-l, --log_level</b></td><td>Sets the logging level, with choices DEBUG, INFO, WARNING, ERROR, and CRITICAL, and INFO as the default.</td></tr>
+<tr><td><b>-o, --output_file</b></td><td>Gives the path to the output file for the report, and is optional.</td></tr>
+</table>
+<div class="flag"><h3>Gaps in the Source List</h3><p>The source parameter list omits both positionals entirely, describes -o only as No description provided, and gives -l no choices and no default. The five entries above come from the parser.</p></div>
+</section>
+<div class="catrow"></div>
+<section class="entry"><p class="hour">FIFTH HOUR</p><h2>Every Failure in One Pass</h2>
+<p>Validation collects every failure in one pass rather than stopping at the first, and each failure is reported with its message and its path joined by dots.</p>
+<p>Two cautions from the code itself, at full size. A failure at the document root has an empty path, so the report prints a blank after Path for exactly the errors that describe the file as a whole. The schema chooses its own dialect through its $schema key, while a schema without one is judged by the newest draft the library knows, and the report never says which dialect did the judging, so the same configuration can pass under one draft and fail under another.</p>
+<p>The endings, plainly: the report is printed, or written to the output file when one is given, and losing that write is treated as a failure of the run. The run exits with code 1 when validation errors exist. The configuration format is decided by file extension, .yaml, .yml, or .json, with any other extension rejected as unsupported.</p>
+<div class="flag"><h3>Wrong Name in the Source</h3>
+<pre>Copyright (c) ShadowStrikeHQ</pre>
+<p>That licence line is wrong for this repository. The LICENSE file itself carries the MIT License. Both facts are printed here, the first under this flag.</p></div>
+<h2>License, With a Fault Flagged</h2>
+<p>Licence closes the log with the fault above flagged, not smoothed over.</p>
+</section>
 </main>
-<footer>
-  <p>Chv Serviceaccountprivilegechecker is one of my projects. This page was written
-  from the repo itself on 2026-10-30: the counts are the
-  repo's counts, the code is the repo's code, and the gaps are the
-  repo's gaps.</p>
-</footer>
+<footer><p>Theme: The Star Blanket of the Desert Camp. Type: Baloo Tamma 2 for headings, Archivo for reading, both SIL Open Font License 1.1. The lettering reference TR2N was reference only and is not embedded.</p></footer>
 </body>
 </html>
