@@ -1,12 +1,10 @@
-![The near edge of a star blanket with its cream star partly cropped, a row of bedrolls, a lantern lit camp table with sleeping cats, teal dunes and the Milky Way, no lettering anywhere](intro-banner.png)
+![The seating plan close up on the desk under the brass lamp, its one red ringed seat square in the middle block and a strip of blank tickets laid across its lower edge, velvet soft behind](intro-banner.png)
 
 > Hour noted first: first hour. A night watch log entry, Baloo Tamma 2 in moon cream on a dream violet plate, with the star blanket drawn once as a header plate under this block.
 
 # chv-serviceaccountprivilegechecker
 
-![The star blanket mark: a folded blanket seen from above, one large cream star at its centre, a teal underside at the turned back corner](logo.png)
-
-![A desert camp at night: star blankets in a row, a camp table with an open watch log whose left page carries the title as its first entry, a lantern, cold tea, sleeping cats, dunes and the Milky Way](banner.png)
+![A theatre box office with the cream seating plan pinned beside the window, its sections labelled STALLS and CIRCLE, a clerk holding a strip of tickets printed ADMIT ONE up against the plan to check them, red velvet curtains and a brass rail in the frame](banner.png)
 
 ![A camp in three depths: stars twinkle in the far sky, the lantern pool breathes over the log book in the middle depth, and a cat breathes at the near edge with one ear flicking at rare intervals](scene.svg)
 
