@@ -3,100 +3,99 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>chv-serviceaccountprivilegechecker: The Star Blanket of the Desert Camp</title>
-<meta name="description" content="Validates a service account configuration file in YAML or JSON against a JSON schema you supply, and reports every place the configuration breaks that schema.">
+<title>chv-serviceaccountprivilegechecker: The Box Office</title>
 <style>
-@font-face{font-family:'Baloo Tamma 2';src:url('fonts/BalooTamma2.ttf') format('truetype');}
-@font-face{font-family:'Archivo';src:url('fonts/Archivo.ttf') format('truetype');}
-:root{--vio:#2c2145;--teal:#1d3a3f;--cream:#f2ead0;--silver:#c9cdd6;--pale:#ddd8c4}
-*{box-sizing:border-box}body{margin:0;background:var(--vio);color:var(--pale);font-family:'Archivo',sans-serif;line-height:1.65}
-h1,h2,h3{font-family:'Baloo Tamma 2',sans-serif;color:var(--cream)}
-.hero img.heroimg{width:100%;height:56vh;object-fit:cover;display:block}
-.hero .in{padding:1rem 6vw 2rem;max-width:1120px;margin:0 auto}
-.logo{width:200px}
-main{padding:0 6vw 3rem;max-width:1120px;margin:0 auto}
-nav{display:flex;gap:.9rem;flex-wrap:wrap;margin:1.2rem 0}
-.plaque{display:inline-block;text-decoration:none;color:var(--cream);font-family:'Baloo Tamma 2',sans-serif;padding:.6rem 1.3rem;background:#241a38;border:2px solid #c9a227;box-shadow:inset 0 0 0 3px #3a2d5e;text-align:center}
-.plaque:hover{background:radial-gradient(ellipse at 50% 50%,#6b5432,#241a38 78%)}
-.plaque:active{background:var(--teal)}
-.plaque:focus-visible{outline:3px double var(--silver);outline-offset:5px}
-.plaque::before{content:none}
-.entry{background:var(--teal);border-top:14px solid #173035;border-radius:0 0 6px 6px;box-shadow:inset 0 4px 0 #8fa3a8;padding:.4rem 1.8rem 1.5rem;margin:1.8rem 0}
-.entry h2{font-size:1.5rem;border-bottom:1px solid var(--silver);padding-bottom:.35rem}
-.hour{font-size:.85rem;color:var(--silver);letter-spacing:.08em}
-pre{background:#14282c;color:var(--cream);padding:1rem;overflow-x:auto}
-.cmd{font-size:1.22rem;text-align:center;font-weight:700}
-a{color:#e8d98a}
-a::before{content:'';display:inline-block;width:14px;height:14px;margin-right:.45em;border-radius:50%;background:radial-gradient(circle at 32% 50%,var(--silver) 0 5px,transparent 6px);border:1px solid var(--silver);vertical-align:-2px}
-a:hover::before{background:var(--silver)}
-.catrow{height:12px;margin:2rem 0;background-image:radial-gradient(ellipse 9px 5px at 50% 60%,#c9cdd6 98%,transparent);background-size:44px 12px;background-repeat:repeat-x;border-top:1px solid var(--silver)}
-table{border-collapse:collapse;width:100%}td,th{padding:.5rem .7rem;border-bottom:1px solid #33565c;text-align:left;vertical-align:top}
-.flag{background:#3d1520;border:2px solid #c96a7a;padding:.2rem 1.4rem 1rem;margin:1.2rem 0}
-.callout{background:#12272b;border-top:4px solid #c9a227;padding:.2rem 1.4rem 1rem;margin:1.2rem 0}
-.callout h3,.flag h3{color:var(--cream);font-size:1.25rem;font-family:'Baloo Tamma 2',sans-serif}
-footer{padding:1rem 6vw 2.4rem;max-width:1120px;margin:0 auto}
+@font-face { font-family: "Marmelad"; src: url("fonts/Marmelad-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Dosis"; src: url("fonts/Dosis-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Dosis"; src: url("fonts/Dosis-700.woff2") format("woff2"); font-weight: 700; }
+:root {
+  --house: #f7f0e2; --velvet: #7e1f26; --ink: #33291f; --soft: #77694f;
+  --brass: #96702a; --amber: #c98a2d; --cream: #fbf6e9; --line: #e0d2ae; --card: #fffdf6;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--house); color: var(--ink); font-family: "Dosis", sans-serif; line-height: 1.55; font-size: 17.5px; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px 64px; }
+header.hero { text-align: center; padding: 52px 0 8px; }
+h1, h2 { font-family: "Marmelad", serif; line-height: 1.15; font-weight: 400; }
+h1 { font-size: clamp(25px, 4.2vw, 38px); margin: 18px 0 6px; }
+.tagline { color: var(--soft); font-size: 19px; margin: 0 auto; max-width: 680px; }
+.btns { margin: 22px 0 6px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+a.btn { font-family: "Marmelad", serif; text-decoration: none; padding: 11px 22px; border-radius: 999px; border: 2px solid var(--velvet); color: var(--velvet); background: transparent; }
+a.btn.solid { background: var(--velvet); border-color: var(--velvet); color: #fff; }
+figure { margin: 30px 0; }
+figure img { width: 100%; border-radius: 10px; display: block; box-shadow: 0 8px 28px rgba(51,41,31,.2); }
+figcaption { color: var(--soft); font-size: 15px; text-align: center; margin-top: 9px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 34px 0; }
+.fact { background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--amber); border-radius: 8px; padding: 14px 16px; }
+.fact b { display: block; font-family: "Marmelad", serif; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; color: var(--brass); margin-bottom: 4px; }
+section { margin: 38px 0; }
+h2 { font-size: 26px; margin: 0 0 12px; border-bottom: 2px solid var(--line); padding-bottom: 7px; }
+code, pre { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+pre { background: #3a2320; color: #f7ecd4; padding: 15px 18px; border-radius: 8px; overflow-x: auto; font-size: 14.5px; }
+table { border-collapse: collapse; width: 100%; background: var(--card); }
+th, td { border: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: top; }
+th { font-family: "Marmelad", serif; background: var(--cream); }
+.hold { background: #fbf0e4; border: 1px solid #e8cba6; border-left: 6px solid var(--velvet); border-radius: 8px; padding: 16px 20px; }
+.hold h2 { border: none; padding: 0; }
+.hold ul { margin: 8px 0 4px; padding-left: 20px; }
+footer { margin-top: 52px; border-top: 2px solid var(--line); padding-top: 16px; color: var(--soft); font-size: 14.5px; text-align: center; }
 </style>
 </head>
 <body>
+<div class="wrap">
 <header class="hero">
-<img class="heroimg" src="assets/intro-banner.png" alt="The near edge of a star blanket, a row of bedrolls, a lantern lit camp table with sleeping cats, dunes and the Milky Way, no lettering anywhere">
-<div class="in">
-<img class="logo" src="assets/logo.png" alt="A folded star blanket seen from above, one large cream star at its centre and a teal underside at the turned back corner">
-<h1>chv-serviceaccountprivilegechecker</h1>
-<p>A night watch log kept through one watch. Each entry is opened by its hour, and the faults in the source are flagged where they stand.</p>
-<nav>
-<a class="plaque" href="#command">Validate the Configuration</a>
-<a class="plaque" href="#params">Supply a Schema</a>
-<a class="plaque" href="#params">Write the Report to a File</a>
-<a class="plaque" href="#params">Set the Logging Level</a>
-<a class="plaque" href="#params">Show Help</a>
-</nav>
-</div>
+  <h1>chv-serviceaccountprivilegechecker</h1>
+  <p class="tagline">The Box Office. A command line validator that checks a service account configuration file against a JSON schema the user supplies, and reports every place the configuration breaks that schema. Each strip of tickets is checked against the seating plan the house drew, and this house wrote no plan of its own: the tool ships with no privilege rules at all.</p>
+  <div class="btns">
+    <a class="btn solid" href="https://github.com/ShadowGuard-AI/chv-serviceaccountprivilegechecker">The repository</a>
+    <a class="btn" href="https://github.com/ShadowGuard-AI/chv-serviceaccountprivilegechecker/blob/main/main.py">main.py</a>
+  </div>
 </header>
-<main>
-<section class="entry" id="watch"><p class="hour">FIRST HOUR</p><h2>The Watch and What It Checks</h2>
-<p>chv-serviceaccountprivilegechecker validates a service account configuration file, in YAML or JSON, against a JSON schema you supply, and reports every place the configuration breaks that schema, with the failing path and the schema message.</p>
-<div class="callout"><h3>No Built In Privilege List</h3><p>The tool ships with no built in list of allowed or forbidden privileges. Privilege limits exist only if the schema you supply encodes them, for example by listing the allowed permission values in an enum.</p></div>
-<div class="callout"><h3>A Presence Only Schema Passes Admin</h3><p>With a schema that only checks that fields are present, a configuration granting admin, root, and sudo passes as valid.</p></div>
-<p>The check is static and file based, with no runtime monitoring.</p>
+
+<figure>
+  <img src="assets/banner.png" alt="A theatre box office with the cream seating plan pinned beside the window, its sections labelled STALLS and CIRCLE, a clerk holding a strip of tickets printed ADMIT ONE up against the plan to check them, red velvet curtains and a brass rail in the frame">
+  <figcaption>The plan on the wall is the only rule book in the room.</figcaption>
+</figure>
+
+<div class="facts">
+  <div class="fact"><b>Invocation</b>Configuration first, schema second; both are required positionals</div>
+  <div class="fact"><b>Format</b>Decided by file extension: .yaml, .yml, or .json; any other extension is rejected as unsupported</div>
+  <div class="fact"><b>Report</b>Every failure collected in one pass, each with its message and its path joined by dots</div>
+  <div class="fact"><b>Exits</b>Validation errors exit 1, and a failed report write is treated as a failure of the run in its own right</div>
+</div>
+
+<section>
+  <h2>Usage</h2>
+  <pre>python3 main.py CONFIG SCHEMA [-l LEVEL] [-o REPORT]</pre>
+  <p>The README's preserved parameter list omits both required positionals, and its usage line is a placeholder that runs nothing; the working invocation stands in the README's flagged completion section, taken from the parser in main.py.</p>
+  <table>
+    <tr><th>Argument</th><th>What it does</th></tr>
+    <tr><td><code>config_file</code></td><td>Required positional: the path to the configuration file, YAML or JSON.</td></tr>
+    <tr><td><code>schema_file</code></td><td>Required positional: the path to the JSON schema file to validate against.</td></tr>
+    <tr><td><code>-l</code>, <code>--log_level</code></td><td>Sets the logging level: DEBUG, INFO, WARNING, ERROR, or CRITICAL. INFO is the default.</td></tr>
+    <tr><td><code>-o</code>, <code>--output_file</code></td><td>The path to the output file for the report. Optional; the report is printed when no file is given.</td></tr>
+    <tr><td><code>-h</code></td><td>Show help message and exit.</td></tr>
+  </table>
 </section>
-<div class="catrow"></div>
-<section class="entry"><p class="hour">SECOND HOUR</p><h2>Taking Up the Watch</h2>
-<div class="flag"><h3>Wrong Organisation in the Source</h3>
-<pre>git clone https://github.com/ShadowStrikeHQ/chv-serviceaccountprivilegechecker</pre>
-<p>The install line above is the single clone line as printed in the source, and it points to ShadowStrikeHQ, the wrong organisation. It must not be followed as printed. This repository lives under ShadowGuard-AI. No corrected clone line is dressed up here as the source's own text.</p></div>
-<p>A smaller note from the repository files: requirements.txt lists jsonschema at version 4.17.0 or above and PyYAML at version 6.0 or above, though the source install passage gives no package install step.</p>
-<p><a href="https://github.com/ShadowGuard-AI/chv-serviceaccountprivilegechecker">The repository on GitHub</a></p>
+
+<figure>
+  <img src="assets/intro-banner.png" alt="The seating plan close up on the desk under the brass lamp, its one red ringed seat square in the middle block and a strip of blank tickets laid across its lower edge, velvet soft behind">
+  <figcaption>One seat ringed in red pencil; the rest of the house passes as drawn.</figcaption>
+</figure>
+
+<section class="hold">
+  <h2>Stated limits</h2>
+  <ul>
+    <li>The privilege half of the name is empty: the tool ships with no built in list of allowed or forbidden privileges at all, so privilege limits exist only if the supplied schema encodes them, for example by listing the allowed permission values in an enum. With a schema that only checks that fields are present, a configuration granting admin, root, and sudo passes as valid.</li>
+    <li>The schema chooses its own dialect through its $schema key, while a schema without one is judged by the newest draft the library knows, and the report never says which dialect did the judging.</li>
+    <li>A failure at the document root has an empty path, so the report prints a blank after Path for exactly the errors that describe the file as a whole.</li>
+    <li>The check is static and file based, with no runtime monitoring and no inspection of any platform, whatever the repository description's cross platform privilege identification phrasing suggests.</li>
+  </ul>
 </section>
-<div class="catrow"></div>
-<section class="entry" id="command"><p class="hour">THIRD HOUR</p><h2>Two Files Are Required</h2>
-<pre class="cmd">python3 main.py config.yaml schema.json</pre>
-<p>Two files are handed to the watch, in that order, every time: the configuration first and the schema second, with optional flags after them. This working invocation comes from the argument parser in main.py and from the run line in its closing comment.</p>
-<div class="flag"><h3>Placeholder in the Source</h3><p>The source usage line, ./chv-serviceaccountprivilegechecker [params], is a placeholder and runs nothing.</p></div>
-</section>
-<div class="catrow"></div>
-<section class="entry" id="params"><p class="hour">FOURTH HOUR</p><h2>Five Entries in the Log</h2>
-<table>
-<tr><td><b>config_file</b></td><td>A required positional giving the path to the configuration file, YAML or JSON.</td></tr>
-<tr><td><b>schema_file</b></td><td>A required positional giving the path to the JSON schema file to validate against.</td></tr>
-<tr><td><b>-h</b></td><td>Shows a help message and exits.</td></tr>
-<tr><td><b>-l, --log_level</b></td><td>Sets the logging level, with choices DEBUG, INFO, WARNING, ERROR, and CRITICAL, and INFO as the default.</td></tr>
-<tr><td><b>-o, --output_file</b></td><td>Gives the path to the output file for the report, and is optional.</td></tr>
-</table>
-<div class="flag"><h3>Gaps in the Source List</h3><p>The source parameter list omits both positionals entirely, describes -o only as No description provided, and gives -l no choices and no default. The five entries above come from the parser.</p></div>
-</section>
-<div class="catrow"></div>
-<section class="entry"><p class="hour">FIFTH HOUR</p><h2>Every Failure in One Pass</h2>
-<p>Validation collects every failure in one pass rather than stopping at the first, and each failure is reported with its message and its path joined by dots.</p>
-<p>Two cautions from the code itself, at full size. A failure at the document root has an empty path, so the report prints a blank after Path for exactly the errors that describe the file as a whole. The schema chooses its own dialect through its $schema key, while a schema without one is judged by the newest draft the library knows, and the report never says which dialect did the judging, so the same configuration can pass under one draft and fail under another.</p>
-<p>The endings, plainly: the report is printed, or written to the output file when one is given, and losing that write is treated as a failure of the run. The run exits with code 1 when validation errors exist. The configuration format is decided by file extension, .yaml, .yml, or .json, with any other extension rejected as unsupported.</p>
-<div class="flag"><h3>Wrong Name in the Source</h3>
-<pre>Copyright (c) ShadowStrikeHQ</pre>
-<p>That licence line is wrong for this repository. The LICENSE file itself carries the MIT License. Both facts are printed here, the first under this flag.</p></div>
-<h2>License, With a Fault Flagged</h2>
-<p>Licence closes the log with the fault above flagged, not smoothed over.</p>
-</section>
-</main>
-<footer><p>Theme: The Star Blanket of the Desert Camp. Type: Baloo Tamma 2 for headings, Archivo for reading, both SIL Open Font License 1.1. The lettering reference TR2N was reference only and is not embedded.</p></footer>
+
+<footer>
+  <p>The README of chv-serviceaccountprivilegechecker closes with a copyright line naming ShadowStrikeHQ; the repository's LICENSE file carries the MIT License. Site type is set in Marmelad and Dosis, self-hosted under the SIL Open Font License.</p>
+</footer>
+</div>
 </body>
 </html>
