@@ -22,6 +22,7 @@ h1 { font-size: clamp(25px, 4.2vw, 38px); margin: 18px 0 6px; }
 .btns { margin: 22px 0 6px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 a.btn { font-family: "Marmelad", serif; text-decoration: none; padding: 11px 22px; border-radius: 999px; border: 2px solid var(--velvet); color: var(--velvet); background: transparent; }
 a.btn.solid { background: var(--velvet); border-color: var(--velvet); color: #fff; }
+img.hero-logo { width: min(400px, 82vw); border-radius: 10px; box-shadow: 0 10px 34px rgba(51,41,31,.25); }
 figure { margin: 30px 0; }
 figure img { width: 100%; border-radius: 10px; display: block; box-shadow: 0 8px 28px rgba(51,41,31,.2); }
 figcaption { color: var(--soft); font-size: 15px; text-align: center; margin-top: 9px; }
@@ -44,6 +45,7 @@ footer { margin-top: 52px; border-top: 2px solid var(--line); padding-top: 16px;
 <body>
 <div class="wrap">
 <header class="hero">
+  <img class="hero-logo" src="assets/logo.png" alt="One cream seating plan sheet straight on under a brass lamp, its grid of small plain seat squares completely blank with no printing, one single seat square ringed in red pencil, the hand drawn ring a loose oval drawn wide around that one seat">
   <h1>chv-serviceaccountprivilegechecker</h1>
   <p class="tagline">The Box Office. A command line validator that checks a service account configuration file against a JSON schema the user supplies, and reports every place the configuration breaks that schema. Each strip of tickets is checked against the seating plan the house drew, and this house wrote no plan of its own: the tool ships with no privilege rules at all.</p>
   <div class="btns">

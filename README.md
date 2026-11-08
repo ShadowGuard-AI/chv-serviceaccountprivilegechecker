@@ -4,6 +4,8 @@
 
 # chv-serviceaccountprivilegechecker
 
+![One cream seating plan sheet straight on under a brass lamp, its grid of small plain seat squares completely blank with no printing, one single seat square ringed in red pencil, the hand drawn ring a loose oval drawn wide around that one seat, the heading plate](logo.png)
+
 ![A theatre box office with the cream seating plan pinned beside the window, its sections labelled STALLS and CIRCLE, a clerk holding a strip of tickets printed ADMIT ONE up against the plan to check them, red velvet curtains and a brass rail in the frame](banner.png)
 
 ![A camp in three depths: stars twinkle in the far sky, the lantern pool breathes over the log book in the middle depth, and a cat breathes at the near edge with one ear flicking at rare intervals](scene.svg)
